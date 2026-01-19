@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# Employee Management System (Frontend Assignment)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project implements the UI for the **Frontend Assignment – Employee Management System**:
 
-## Available Scripts
+- **Roles**: Owner (Admin), Team Lead (Sub-admin), Employee
+- **Modules (UI-level)**: Authentication (UI only), role-based dashboards, attendance, leave management, holidays/calendar, salary view
+- **Data**: Mock data + mock state persisted to `localStorage` (no backend required)
 
-In the project directory, you can run:
+## Tech Stack
 
-### `npm start`
+- **React (Create React App) + TypeScript**
+- **React Router**
+- **Context** for basic state management (`AuthContext`, `HRContext`)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+npm start
+```
 
-### `npm test`
+Open the app at `http://localhost:3000`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Demo Login (Mock)
 
-### `npm run build`
+On `/login` you can:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Login as Owner (Admin)**: full overview + leave approvals + can add holidays
+- **Login as Team Lead**: team overview + team leave approvals
+- **Login as Employee**: personal attendance + leave history + salary summary
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+You can also pick a specific employee from the “Pick Employee” tab (still mock).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## What’s Implemented (per assignment)
 
-### `npm run eject`
+### Authentication (UI only)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Login screen
+- Role-based redirection to `/dashboard`
+- Protected pages via `ProtectedRoute`
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Dashboards (role-based)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Owner/Admin**: total employees, attendance summary, pending leaves, salary overview
+- **Team Lead**: team attendance, team leave requests, team members list
+- **Employee**: personal attendance, leave balance (mock), salary summary
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Attendance System
 
-## Learn More
+- In time / Out time entry (for self, or any employee as Owner)
+- Daily attendance list
+- Monthly view grid
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Leave Management
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Apply for leave
+- Leave history
+- Approve / reject leaves (Owner & Team Lead)
 
-### Code Splitting
+### Holiday & Calendar
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Calendar view
+- Holidays list
+- Restricted holidays (RH) toggle
+- Owner can mark/add holidays
 
-### Analyzing the Bundle Size
+### Salary View
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Monthly salary breakdown
+- Attendance-linked calculation (LOP)
+- Payslip-style UI
 
-### Making a Progressive Web App
+## Folder Structure (high-level)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- `src/pages/` — route-level pages (Dashboard modules, Login, etc.)
+- `src/components/` — layout + reusable UI components
+- `src/contexts/` — `AuthContext` + `HRContext` (mock state & actions)
+- `src/data/` — mock seed data
+- `src/types/` — shared TypeScript types
+- `src/utils/` — small helpers (dates, etc.)
+- `src/styles/` — global styling
 
-### Advanced Configuration
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- This is intentionally **UI-first** (no real auth backend).
+- Mock state is persisted in `localStorage`:
+  - `ems.auth.v1` (current session)
+  - `ems.hr.v1` (attendance/leaves/holidays/salary mock data)
 
-### Deployment
+## Bonus Features (Optional)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- ✅ **Charts & summaries**: Donut charts for attendance, bar charts for salary breakdowns
+- ✅ **Advanced calendar UI**: Month navigation, weekday headers, today highlight
+- ✅ **Filters & search**: Search/filter for leave lists, attendance, holidays
+- ✅ **Dark mode**: Theme toggle (dark/light) with persisted preference
 
-### `npm run build` fails to minify
+## Production Build & Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Build
+
+```bash
+npm run build
+```
+
+This creates an optimized `build/` folder ready for deployment.
+
+### Deploy to Netlify (Fastest)
+
+1. Go to [https://app.netlify.com/drop](https://app.netlify.com/drop)
+2. Drag and drop the `build` folder
+3. Your site is live instantly!
+
+### Deploy to Vercel
+
+1. Go to [https://vercel.com](https://vercel.com)
+2. Sign in with GitHub (or email)
+3. Click "Add New Project"
+4. Import your GitHub repo (or drag `build` folder)
+5. Deploy
+
+### Test Locally
+
+```bash
+npm install -g serve
+serve -s build
+```
+
+Then open `http://localhost:3000`
