@@ -1,128 +1,99 @@
-# Employee Management System (Frontend Assignment)
+# Employee Management System – Frontend Assignment
 
-This project implements the UI for the **Frontend Assignment – Employee Management System**:
+Frontend assignment submission for **GrubPac Technology**.  
+A role-based Employee Management System UI built using **React + TypeScript**, aligned strictly with the assignment requirements.
 
-- **Roles**: Owner (Admin), Team Lead (Sub-admin), Employee
-- **Modules (UI-level)**: Authentication (UI only), role-based dashboards, attendance, leave management, holidays/calendar, salary view
-- **Data**: Mock data + mock state persisted to `localStorage` (no backend required)
+🔗 **Live Demo**: https://ems-frontend-ajay.netlify.app  
+🔗 **GitHub Repo**: https://github.com/ajaykumar-ai/employee-management-system
 
-## Tech Stack
+---
 
-- **React (Create React App) + TypeScript**
-- **React Router**
-- **Context** for basic state management (`AuthContext`, `HRContext`)
+## Overview
 
-## Setup
+This project implements a **frontend-only Employee Management System** with three user roles:
 
-```bash
-npm install
-npm start
-```
+- **Owner / Admin**
+- **Team Lead**
+- **Employee**
 
-Open the app at `http://localhost:3000`.
+The application demonstrates role-based dashboards, protected routing, and core HR workflows such as attendance, leave management, holidays, and salary views using **mock data**.
 
-## Demo Login (Mock)
+The focus is on:
+- clean architecture
+- role-based flows
+- reusable components
+- realistic UI behavior
 
-On `/login` you can:
+---
 
-- **Login as Owner (Admin)**: full overview + leave approvals + can add holidays
-- **Login as Team Lead**: team overview + team leave approvals
-- **Login as Employee**: personal attendance + leave history + salary summary
+## Features (Assignment Scope)
 
-You can also pick a specific employee from the “Pick Employee” tab (still mock).
+### Authentication (UI Only)
+- Login screen with role-based access
+- Protected routes
+- Role-based redirection after login
+- Session persistence using localStorage
 
-## What’s Implemented (per assignment)
+### Role-Based Dashboards
+- **Owner / Admin**
+  - Total employees
+  - Attendance summary
+  - Pending leave requests
+  - Salary overview
+- **Team Lead**
+  - Team attendance
+  - Team leave requests
+  - Team members list
+- **Employee**
+  - Personal attendance
+  - Leave balance
+  - Salary summary
 
-### Authentication (UI only)
-
-- Login screen
-- Role-based redirection to `/dashboard`
-- Protected pages via `ProtectedRoute`
-
-### Dashboards (role-based)
-
-- **Owner/Admin**: total employees, attendance summary, pending leaves, salary overview
-- **Team Lead**: team attendance, team leave requests, team members list
-- **Employee**: personal attendance, leave balance (mock), salary summary
-
-### Attendance System
-
-- In time / Out time entry (for self, or any employee as Owner)
+### Attendance Management
+- In-time / Out-time entry
 - Daily attendance list
-- Monthly view grid
+- Monthly attendance view
+- Role-based access control
 
 ### Leave Management
-
 - Apply for leave
-- Leave history
+- Leave history with status
 - Approve / reject leaves (Owner & Team Lead)
 
 ### Holiday & Calendar
-
 - Calendar view
 - Holidays list
-- Restricted holidays (RH) toggle
-- Owner can mark/add holidays
+- Restricted Holidays (RH)
+- Owner can add holidays
 
 ### Salary View
-
 - Monthly salary breakdown
-- Attendance-linked calculation (LOP)
+- Attendance-linked LOP calculation
 - Payslip-style UI
 
-## Folder Structure (high-level)
+---
 
-- `src/pages/` — route-level pages (Dashboard modules, Login, etc.)
-- `src/components/` — layout + reusable UI components
-- `src/contexts/` — `AuthContext` + `HRContext` (mock state & actions)
-- `src/data/` — mock seed data
-- `src/types/` — shared TypeScript types
-- `src/utils/` — small helpers (dates, etc.)
-- `src/styles/` — global styling
+## Bonus Enhancements
 
-## Notes
+- Dashboard charts (attendance & salary)
+- Search and filters
+- Advanced calendar navigation
+- Dark / light theme toggle
 
-- This is intentionally **UI-first** (no real auth backend).
-- Mock state is persisted in `localStorage`:
-  - `ems.auth.v1` (current session)
-  - `ems.hr.v1` (attendance/leaves/holidays/salary mock data)
+---
 
-## Bonus Features (Optional)
+## Technical Approach
 
-- ✅ **Charts & summaries**: Donut charts for attendance, bar charts for salary breakdowns
-- ✅ **Advanced calendar UI**: Month navigation, weekday headers, today highlight
-- ✅ **Filters & search**: Search/filter for leave lists, attendance, holidays
-- ✅ **Dark mode**: Theme toggle (dark/light) with persisted preference
+- **React + TypeScript** for type safety and maintainability
+- **React Context API** for global state (Auth, HR data, Theme)
+- **React Router v6** for routing and protected routes
+- Modular component structure with separation of concerns
+- Mock data persisted using `localStorage`
+- Responsive layout with reusable UI components
 
-## Production Build & Deployment
+The solution is intentionally frontend-only, as per assignment instructions.
 
-### Build
+---
 
-```bash
-npm run build
-```
+## Project Structure
 
-This creates an optimized `build/` folder ready for deployment.
-
-### Deploy to Netlify (Fastest)
-
-1. Go to [https://app.netlify.com/drop](https://app.netlify.com/drop)
-2. Drag and drop the `build` folder
-3. Your site is live instantly!
-
-### Deploy to Vercel
-
-1. Go to [https://vercel.com](https://vercel.com)
-2. Sign in with GitHub (or email)
-3. Click "Add New Project"
-4. Import your GitHub repo (or drag `build` folder)
-5. Deploy
-
-### Test Locally
-
-```bash
-npm install -g serve
-serve -s build
-```
-
-Then open `http://localhost:3000`
