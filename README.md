@@ -95,5 +95,3 @@ The solution is intentionally frontend-only, as per assignment instructions.
 
 ---
 
-## Project Structure
-
